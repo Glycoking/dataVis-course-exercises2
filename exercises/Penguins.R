@@ -35,7 +35,7 @@ ggplot(
   data = penguins,
   mapping = aes(x=species, y = bill_depth_mm),
 ) +
-  geom_boxplot()¨
+  geom_boxplot()
 #5)Geom_points mangler data punkter for x og y værdier
 ggplot(data = penguins) + 
   geom_point()
