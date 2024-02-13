@@ -3,6 +3,8 @@ library(tidyverse)
 library(palmerpenguins)
 library(ggthemes)
 
+script_path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+setwd(script_path)
 
 ggplot(
   data = penguins,
@@ -31,7 +33,10 @@ ggplot(
 #4) 
 ggplot(
   data = penguins,
-  mapping = aes(x=species, y = bill_depth_mm)
-  
+  mapping = aes(x=species, y = bill_depth_mm),
 ) +
   geom_jitter()
+
+
+
+
