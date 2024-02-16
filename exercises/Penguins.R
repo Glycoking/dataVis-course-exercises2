@@ -53,3 +53,49 @@ ggplot(
   geom_point(na.rm = TRUE) +
   labs(title= "Penguins",subtitle = "Data come from the palmerpenguins package.", x= "Species", y="Bill dept (mm)")
 
+#1.4
+ggplot(penguins, aes(x = species)) +
+  geom_bar()
+# With reorder
+ggplot(penguins, aes(x = fct_infreq(species))) +
+  geom_bar()
+#Histogram
+ggplot(penguins, aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 500)
+#Execsises 1.4.3
+#Exersie 1
+#Barplot of spcies of penguins
+ggplot(penguins, aes(y=species)) +
+  geom_bar(aes(y=species),color = "blue")
+#Exersise 2¨
+ggplot(penguins, aes(x = species)) +
+  geom_bar(color = "red")
+
+ggplot(penguins, aes(x = species)) +
+  geom_bar(fill = "red", color="blue")
+#Fill is better at coloring the whole bar
+#exercise 3
+#Bins controll the amount of obervations in a single pile
+
+ggplot(diamonds, aes(x=carat))+
+  geom_histogram(bins=1000)
+
+ggplot(penguins, aes(y = species, x = body_mass_g)) +
+  geom_boxplot()
+
+
+ggplot(penguins, aes(x = body_mass_g, color = species, fill = species)) +
+  geom_density(alpha = 0.5)
+
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "fill")
+
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point()
+
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species, shape = island))
+
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species, shape = species)) +
+  facet_wrap(~island)
