@@ -99,3 +99,39 @@ ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
   geom_point(aes(color = species, shape = species)) +
   facet_wrap(~island)
+#1.5.5
+#Exercise 1
+#Which variables in mpg are categorical? Which variables are numerical? 
+#Numerical:Displ, year,cyl,cty,hwy,
+#Catagorical: Manufacturer, model, trans, drv, fl, class
+#Exercise 3
+ggplot(mpg, aes(x=hwy, y=displ,linewidth=cyl ))+
+  geom_point(aes(color=class))
+#Exercise 4
+# Then it shows in multiple aestetics
+#Exercise 5
+ggplot(penguins, aes(x=bill_depth_mm, y=bill_length_mm)) +
+  geom_point(aes(color=species))
+#Exercise 6
+
+ggplot(
+  data = penguins,aes(
+    x = bill_length_mm, y = bill_depth_mm, 
+    color = species, shape = species
+  )
+) +
+  geom_point() +
+  labs(color = "Species")
+#Remove extra labels (labs)
+#Exercise 7
+ggplot(penguins, aes(x = island, fill = species)) +
+  geom_bar(position = "fill")
+#With this plot i can anwser question about the population of penguins on a given island and their species
+ggplot(penguins, aes(x = species, fill = island)) +
+  geom_bar(position = "fill")
+#With this plot i can anwser questions about where different penguin species are located on islands
+#I can see weether they are spread around or on a single island
+
+ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color=species))
+ggsave(filename = "penguin-plot.png", width = 8, height = 8)
