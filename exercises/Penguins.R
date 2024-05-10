@@ -133,5 +133,9 @@ ggplot(penguins, aes(x = species, fill = island)) +
 #I can see weether they are spread around or on a single island
 
 ggplot(penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
-  geom_point(aes(color=species))
-ggsave(filename = "penguin-plot.png", width = 8, height = 8)
+  geom_point(aes(color=species)) +
+  labs(title = "Penguins", x = "Flipper length (mm)", y = "Body mass (g)")
+ggsave(filename = "penguin-plot.png", width = 2000, height= 1500, units = "px")
+
+
+
