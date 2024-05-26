@@ -2,6 +2,7 @@ library(shiny)
 library(plotly)
 library(tidyverse)
 library(shinydashboard)
+setwd("~/Github/dataVis-course-exercises2/mini-project")
 load("data/aggData.rda")
 data <- agg_dataNum
 
@@ -9,39 +10,23 @@ data <- agg_dataNum
 
 
 ui <- dashboardPage(skin = "black",
-  dashboardHeader(title = "Hospital stats"),
-  dashboardSidebar(
-    sidebarMenu(
-      menuItem("Dashboard", tabName = "hospital_stats", icon = icon("dashboard")),
-      menuItem("Widgets", tabName = "widgets", icon = icon("th"))
-    )
-  ),
-  dashboardBody(skin = "black",
-    tabItems(
-      tabItem(tabName = "hospital_stats",
-              fluidRow(
-                box(plotOutput("plot1", height = 250)),
-                box(
-                  title = "Slider",
-                  sliderInput("slider", "Antal observationer:", 1, 5000, 100)
-                )
-              )
-      ),
-      tabItem(tabName = "widgets",
-              h2("Indhold i Widgets-fanen")
-      )
-    )
-  )
+  dashboardHeader(title = "Hospital stats"), #Top
+  dashboardSidebar(),
+  dashboardBody(
+    box(plotOutput("quarter_plot"), width = 8),# Plot
+    box(selectInput("quarter", "Quarters", c("all", "Q1","Q2","Q3","Q4")), width = 4),
+    box(selectInput("gender", "Gender", c("all", "female","male")), width = 4))
 )
 
+
 server <- function(input, output) {
-  data <- data %>% filter(subGroup == "gender")
-
-
-  output$plot1 <- renderPlot({
-    data <- data[seq_len(input$slider)]
-    plot(data = data, aes(x=subGroupVal)) + geom_bar(fill = "yellow2", colour="black")
+  x <- data %>% filter(subGroup == "gender")
+  output$quarter_plot <- renderPlot({ #Plot
+    ggplot(data = data[[input$gender]]%>% filter(subGroup == "gender"), aes(x=subGroupVal)) + geom_bar()#Argumenter
+    #plot(x$year, x$qual4Gold,xlab = "gg", ylab = "Feature")
+    #ggplot(data = subset(x,!is.na(subGroupVal)), aes(x=subGroupVal)) + geom_bar(fill="darkblue",width = 0.6) + theme_classic()
   })
+
 }
 
 # ;) ----------------------------------------------------------------------
