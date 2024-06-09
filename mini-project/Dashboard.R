@@ -9,7 +9,7 @@ data <- agg_dataNum
 
 ui <- pageWithSidebar(
   headerPanel("Settings"),
-    sidebarPanel(fluid = FALSE,          #Sidebar panel for inputs
+    sidebarPanel(fluid = FALSE,     
       checkboxInput("Color", "Colorblind mode (Deuteranomaly)", value = FALSE),
       selectInput(inputId = "aggregation", label = "Select a KPI", choices = c("af_p_dis_anticoag","dgt_leq_120", "dgt_leq_90","dnt_leq_45","dnt_leq_60","isp_dis_antiplat", "p_ct_mri_first_hosp", "p_dys_screen", "rec_total_is", "sp_hosp_stroke_unit_ICU")),
       checkboxGroupInput(inputId = "YEAR", label = "Select year(s)", choices = list("2016"=2016,"2017"=2017, "2018"=2018,"2019"=2019, "2020"=2020,"2021"=2021, "2022"=2022 ), selected = 2022),
@@ -176,12 +176,9 @@ server <- function(input, output) {
                  & data$nameOfAggr == input$aggregation
                  & data$year %in% input$YEAR
                  & data$subGroup == "stroke_type"
-                 #& data$aggFunc == "pct"
                  & !is.na(data$subGroup)
                  ,] 
-      #data <- data$Subgroup <- mutate(Subgroup = factor(data$subGroupVal)) 
       ggplotly(
-      #ggplot(data = data, aes(x = YQ, y = Value, size = data_Pts, color = "stroke_type")) +  #SCATTER plot
         ggplot(data = data, aes(x = subGroupVal, fill = subGroupVal)) +
         geom_bar() +theme_classic()
 
@@ -263,5 +260,5 @@ server <- function(input, output) {
       ,source = "value_data")
   })
 }
-shinyApp(ui, server) #Dashboard
+shinyApp(ui, server) 
 
